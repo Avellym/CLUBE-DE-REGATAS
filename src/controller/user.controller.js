@@ -56,6 +56,7 @@ exports.findById = async (request, response) => {
 exports.create = async (request, response) => {
     try {
         const {username, password, email} = request.body
+        console.log(username, password, email);
     const user = await userService.create(username, email, password)
     response 
        .status(201)
