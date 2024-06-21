@@ -1,101 +1,109 @@
+
 const userService = require('../service/user.service')
 
-exports.findAll = async (request,response) => {
+exports.findAll = async (request, response) => {
     try {
-
-        const users =  await userService.findAll()
+        const users = await userService.findAll()
         return response
-        .status(200)
-        .json({
-            status: 200,
-            data: users,
-            message: "listando usuarios"
+            .status(200)
+            .json({
+                status: 200,
+                data: users,
+                message: "Listando usuários."
+            })
 
-        })
-        
-    } catch (e) {
-
+    } catch(e) {
         response
-        .send(400)
-        .json({
-            status: 400,
-            message: e
-        })
-        
-        
+            .send(400)
+            .json({
+                status: 400,
+                message: e    
+            })
     }
-
-
 }
-
 
 exports.findById = async (request, response) => {
     try {
-
         const id = parseInt(request.params.id)
         const user = await userService.findById(id)
-        response.status(200)
-        .json({
-            status: 200,
-            data: user,
-            message: "usuario encntrado"
-        })
-        
-    } catch (e) {
         response
-        .send(400)
-        .json({
-            status: 400,
-            message: e
-        })
-        
+            .status(200)
+            .json({
+                status: 200,
+                data: user,
+                message: "Usuário encontrado."
+            })
+    } catch(e) {
+        response
+            .send(400)
+            .json({
+                status: 400,
+                message: e
+            })
     }
 }
-
 
 exports.create = async (request, response) => {
     try {
-        const {username, password, email} = request.body
-        console.log(username, password, email);
-    const user = await userService.create(username, email, password)
-    response 
-       .status(201)
-       .send({
-        message: 'usuario cadastrado',
-        body: {
-            user: user
-        }
-       })
-        
-    } catch (e) {
-        
-    }
-    
-}
-
-exports.update = async (id, username, email, password) => {
-    try {
-       const user = await User.update(
-            {
-                username: username,
-                email: email,
-                password: password
-            },
-            { where: { id: id }}
-        )
-       return {username: username, email: email} 
+        const { username, email, password } = request.body
+        const user = await userService.create(username, email, password)
+        response    
+            .status(201)
+            .send({
+                message: 'Usuário cadastrado com sucesso',
+                body: {
+                    user: user
+                }
+            })
     } catch(e) {
-        console.log(`Error UPDATE USER: ${e.message}`);
-        throw Error(`Erro ao alterar o usuário com username ${username}`)
+        response
+            .send(400)
+            .json({
+                status: 400,
+                message: e
+            })
     }
 }
 
-exports.delete = async (id) => {
+exports.update = async (request, response) => {
     try {
-        await User.destroy({ where: { id: id }})
-
+        const id = parseInt(request.params.id)
+        const { username, email, password } = request.body
+        const user = await userService.update(id, username, email, password)
+        response    
+            .status(200)
+            .send({
+                message: 'Usuário cadastrado com sucesso',
+                body: {
+                    user: user
+                }
+            })
     } catch(e) {
-        console.log(`Error DELETE USER: ${e.message}`);
-        throw Error(`Erro deletar o usuário com ID: ${id}`)
+        response
+            .send(400)
+            .json({
+                status: 400,
+                message: e
+            })
+    }
+}
+
+exports.delete = async (request, response) => {
+    try {
+        const id = parseInt(request.params.id)
+        await userService.delete(id)
+        response
+            .status(200)
+            .json({
+                status: 200,
+                message: "Usuário deletado."
+            })
+    } catch(e) {
+        response
+            .send(400)
+            .json({
+                status: 400,
+                message: e
+            })
     }
 }

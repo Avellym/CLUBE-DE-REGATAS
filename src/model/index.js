@@ -23,6 +23,12 @@ const db = {}
 
 db.sequelize = sequelize
 db.users = require('../model/user.model')((db.sequelize))
+db.permission = require('../model/permission.model')((db.sequelize))
+
+db.permission.hasMany(db.users)
+db.users.belongsTo(db.permission)
+
+db.permission.sync()
 db.users.sync()
 
 module.exports = db
