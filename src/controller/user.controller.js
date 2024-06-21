@@ -1,4 +1,3 @@
-
 const userService = require('../service/user.service')
 
 exports.findAll = async (request, response) => {
