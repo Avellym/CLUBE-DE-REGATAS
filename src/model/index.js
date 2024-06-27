@@ -31,5 +31,6 @@ db.users.belongsTo(db.permission)
 
 db.permission.sync()
 db.users.sync()
+db.product.sync()
 
 module.exports = db
