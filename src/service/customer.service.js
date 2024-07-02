@@ -1,5 +1,5 @@
 const db = require('../model');
-const Customer = db.customers;
+const Customer = db.customer;
 
 exports.create = async (fullname, email, phone) => {
     try {
