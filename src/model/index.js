@@ -26,13 +26,26 @@ db.users = require('../model/user.model')((db.sequelize))
 db.permission = require('../model/permission.model')((db.sequelize))
 db.product = require('../model/product.model')((sequelize))
 db.customer = require('../model/customer.model')((sequelize))
+db.order = require('../model/order.model')((db.sequelize))
+db.orderItem = require('../model/orderItem.model')((db.sequelize))
 
 db.permission.hasMany(db.users)
 db.users.belongsTo(db.permission)
+
+db.order.belongsToMany(db.product, { through: db.orderItem });
+db.product.belongsToMany(db.order, { through: db.orderItem });
+
+db.order.hasMany(db.orderItem);
+db.orderItem.belongsTo(db.order);
+
+db.product.hasMany(db.orderItem);
+db.orderItem.belongsTo(db.product);
 
 db.permission.sync()
 db.users.sync()
 db.product.sync()
 db.customer.sync()
+db.order.sync()
+db.orderItem.sync()
 
 module.exports = db
