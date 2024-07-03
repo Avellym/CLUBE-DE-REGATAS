@@ -9,6 +9,7 @@ const productRouter = require('./router/product.router')
 const customerRouter = require('./router/customer.router')
 const orderRouter = require('./router/order.router')
 const orderItem = require('./router/orderItem.router')
+const reportRouter = require('./router/report.router')
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -22,5 +23,6 @@ app.use('/api/', productRouter)
 app.use('/api/', customerRouter)
 app.use('/api/', orderRouter)
 app.use('/api/', orderItem)
+app.use('/api/', reportRoutes);
 
 module.exports = app
