@@ -1,4 +1,4 @@
-const {DataTypes} = require('sequelize')
+const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
     const User = sequelize.define('users',{
@@ -9,27 +9,28 @@ module.exports = (sequelize) => {
         },
         username: {
             type: DataTypes.STRING,
-            notNull: true,
-            is: /^[a-zA-Z0-9\.]{4, 32}%/,
+            allowNull: false,
             unique: true
-            
         },
         email: {
             type: DataTypes.STRING,
-            notNull: true,
-            unique: true,
-
+            allowNull: false,
+            unique: true
         },
         password: {
-            type:DataTypes.STRING,
-            notNull: true
-        },
-        
+            type: DataTypes.STRING,
+            allowNull: false
+        }
+    }, {
+        timestamps: false
+    });
 
+    User.associate = (models) => {
+        User.belongsToMany(models.Permission, {
+            through: 'UserPermissions',
+            foreignKey: 'userId'
+        });
+    };
 
-    },
-    {
-            timestamps: false
-    })
-    return User
-}
+    return User;
+};
