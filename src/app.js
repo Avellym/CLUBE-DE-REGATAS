@@ -23,6 +23,6 @@ app.use('/api/', productRouter)
 app.use('/api/', customerRouter)
 app.use('/api/', orderRouter)
 app.use('/api/', orderItem)
-app.use('/api/', reportRoutes);
+app.use('/api/', reportRouter);
 
 module.exports = app
