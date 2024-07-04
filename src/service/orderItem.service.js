@@ -4,7 +4,12 @@ const OrderItem = db.orderItem;
 
 exports.findAll = async () => {
     try {
-        const orderItems = await OrderItem.findAll();
+        const orderItems = await OrderItem.findAll({
+            include: [
+                { model: db.product, as: 'product' },
+                { model: db.order, as: 'order' } 
+            ]
+        });
         return orderItems;
     } catch (e) {
         console.error(`Error in findAll: ${e.message}`);

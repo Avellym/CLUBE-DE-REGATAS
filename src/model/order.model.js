@@ -1,5 +1,4 @@
 const { DataTypes } = require('sequelize');
-const { sequelize } = require('sequelize');
 
 
 module.exports = (sequelize) => {
@@ -21,11 +20,11 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        customer: {
+        customerId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'Customers', 
+                model: 'customers', 
                 key: 'id'
             }
         },

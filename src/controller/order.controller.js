@@ -35,8 +35,8 @@ exports.findById = async (req, res) => {
 
 exports.create = async (req, res) => {
     try {
-        const { description, order_date, status, customer, amount } = req.body;
-        const order = await orderService.create(description, order_date, status, customer, amount);
+        const { description, order_date, status, customerId, amount } = req.body;
+        const order = await orderService.create(description, order_date, status, customerId, amount);
         return res.status(201).json({
             message: 'Pedido cadastrado com sucesso',
             body: {
@@ -54,8 +54,8 @@ exports.create = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const { description, order_date, status, customer, amount } = req.body;
-        const order = await orderService.update(id, description, order_date, status, customer, amount);
+        const { description, order_date, status, customerId, amount } = req.body;
+        const order = await orderService.update(id, description, order_date, status, customerId, amount);
         return res.status(200).json({
             message: 'Pedido atualizado com sucesso',
             body: {

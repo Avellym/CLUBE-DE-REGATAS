@@ -25,12 +25,6 @@ module.exports = (sequelize) => {
         timestamps: false
     });
 
-    User.associate = (models) => {
-        User.belongsToMany(models.Permission, {
-            through: 'UserPermissions',
-            foreignKey: 'userId'
-        });
-    };
 
     return User;
 };

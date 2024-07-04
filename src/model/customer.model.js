@@ -1,8 +1,7 @@
 const { DataTypes } = require('sequelize');
-const { sequelize } = require('sequelize');
 
 module.exports = (sequelize) => {
-    const Customer = sequelize.define('Customer', {
+    const Customer = sequelize.define('customer', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -29,7 +28,7 @@ module.exports = (sequelize) => {
         },
     }, {
         timestamps: false, // Desativa timestamps padrões (createdAt e updatedAt)
-        tableName: 'Customers' // Define o nome da tabela no banco de dados
+        tableName: 'customers' // Define o nome da tabela no banco de dados
     });
 
     return Customer;

@@ -1,5 +1,4 @@
 const { DataTypes } = require('sequelize');
-const { sequelize } = require('sequelize');
 
 module.exports = (sequelize) => {
     const OrderItem = sequelize.define('orderItem', {
@@ -31,7 +30,8 @@ module.exports = (sequelize) => {
         valueItem: {
             type: DataTypes.FLOAT,
             allowNull: false
-        }
+        },
+
     }, {
         timestamps: false,
         tableName: 'orderItems'

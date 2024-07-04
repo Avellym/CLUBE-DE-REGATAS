@@ -12,8 +12,14 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             notNull: true,
             
+        },
+        userId: {
+            type: DataTypes.INTEGER,
+            references: {
+              model: 'users',
+              key: 'id'
+            }
         }
-
     },
     {
             timestamps: false

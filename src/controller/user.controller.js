@@ -1,108 +1,85 @@
 const userService = require('../service/user.service')
 
-exports.findAll = async (request, response) => {
+exports.findAll = async (req, res) => {
     try {
-        const users = await userService.findAll()
-        return response
-            .status(200)
-            .json({
-                status: 200,
-                data: users,
-                message: "Listando usuários."
-            })
-
-    } catch(e) {
-        response
-            .send(400)
-            .json({
-                status: 400,
-                message: e    
-            })
+        const users = await userService.findAll();
+        res.status(200).json({
+            status: 200,
+            data: users,
+            message: "Listando usuários com permissões."
+        });
+    } catch (e) {
+        res.status(400).json({
+            status: 400,
+            message: e.message
+        });
     }
-}
+};
 
-exports.findById = async (request, response) => {
+exports.findById = async (req, res) => {
     try {
-        const id = parseInt(request.params.id)
-        const user = await userService.findById(id)
-        response
-            .status(200)
-            .json({
-                status: 200,
-                data: user,
-                message: "Usuário encontrado."
-            })
-    } catch(e) {
-        response
-            .send(400)
-            .json({
-                status: 400,
-                message: e
-            })
+        const id = parseInt(req.params.id);
+        const user = await userService.findById(id);
+        res.status(200).json({
+            status: 200,
+            data: user,
+            message: "Usuário encontrado com permissões."
+        });
+    } catch (e) {
+        res.status(400).json({
+            status: 400,
+            message: e.message
+        });
     }
-}
+};
 
-exports.create = async (request, response) => {
+exports.create = async (req, res) => {
     try {
-        const { username, email, password } = request.body
-        const user = await userService.create(username, email, password)
-        response    
-            .status(201)
-            .send({
-                message: 'Usuário cadastrado com sucesso',
-                body: {
-                    user: user
-                }
-            })
-    } catch(e) {
-        response
-            .send(400)
-            .json({
-                status: 400,
-                message: e
-            })
+        const { username, email, password, permissions } = req.body;
+        const user = await userService.create(username, email, password, permissions);
+        res.status(201).json({
+            status: 201,
+            data: user,
+            message: "Usuário criado com permissões."
+        });
+    } catch (e) {
+        res.status(400).json({
+            status: 400,
+            message: e.message
+        });
     }
-}
+};
 
-exports.update = async (request, response) => {
+exports.update = async (req, res) => {
     try {
-        const id = parseInt(request.params.id)
-        const { username, email, password } = request.body
-        const user = await userService.update(id, username, email, password)
-        response    
-            .status(200)
-            .send({
-                message: 'Usuário cadastrado com sucesso',
-                body: {
-                    user: user
-                }
-            })
-    } catch(e) {
-        response
-            .send(400)
-            .json({
-                status: 400,
-                message: e
-            })
+        const id = parseInt(req.params.id);
+        const { username, email, password, permissions } = req.body;
+        const user = await userService.update(id, username, email, password, permissions);
+        res.status(200).json({
+            status: 200,
+            data: user,
+            message: "Usuário atualizado com permissões."
+        });
+    } catch (e) {
+        res.status(400).json({
+            status: 400,
+            message: e.message
+        });
     }
-}
+};
 
-exports.delete = async (request, response) => {
+exports.delete = async (req, res) => {
     try {
-        const id = parseInt(request.params.id)
-        await userService.delete(id)
-        response
-            .status(200)
-            .json({
-                status: 200,
-                message: "Usuário deletado."
-            })
-    } catch(e) {
-        response
-            .send(400)
-            .json({
-                status: 400,
-                message: e
-            })
+        const id = parseInt(req.params.id);
+        await userService.delete(id);
+        res.status(200).json({
+            status: 200,
+            message: "Usuário deletado."
+        });
+    } catch (e) {
+        res.status(400).json({
+            status: 400,
+            message: e.message
+        });
     }
-}
+};

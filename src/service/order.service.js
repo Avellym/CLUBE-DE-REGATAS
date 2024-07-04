@@ -3,7 +3,9 @@ const Order = db.order;
 
 exports.findAll = async () => {
     try {
-        const orders = await Order.findAll();
+        const orders = await Order.findAll({
+            include: { model: db.customer, as: 'customer' }
+        });
         return orders;
     } catch (e) {
         console.error(`Erro em findAll: ${e.message}`);
@@ -13,7 +15,9 @@ exports.findAll = async () => {
 
 exports.findById = async (id) => {
     try {
-        const order = await Order.findByPk(id);
+        const order = await Order.findByPk(id, {
+            include: { model: db.customer, as: 'customer' }
+        });
         return order;
     } catch (e) {
         console.error(`Erro em findById: ${e.message}`);
@@ -21,13 +25,13 @@ exports.findById = async (id) => {
     }
 };
 
-exports.create = async (description, order_date, status, customer, amount) => {
+exports.create = async (description, order_date, status, customerId, amount) => {
     try {
         const order = await Order.create({
             description,
             order_date,
             status,
-            customer,
+            customerId,
             amount
         });
         return order;
@@ -37,13 +41,13 @@ exports.create = async (description, order_date, status, customer, amount) => {
     }
 };
 
-exports.update = async (id, description, order_date, status, customer, amount) => {
+exports.update = async (id, description, order_date, status, customerId, amount) => {
     try {
         await Order.update(
-            { description, order_date, status, customer, amount },
+            { description, order_date, status, customerId, amount },
             { where: { id } }
         );
-        return { id, description, order_date, status, customer, amount };
+        return { id, description, order_date, status, customerId, amount };
     } catch (e) {
         console.error(`Erro em update: ${e.message}`);
         throw new Error(`Erro ao atualizar pedido com ID ${id}`);
