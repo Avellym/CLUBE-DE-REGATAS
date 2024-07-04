@@ -9,7 +9,7 @@ const productRouter = require('./router/product.router')
 const customerRouter = require('./router/customer.router')
 const orderRouter = require('./router/order.router')
 const orderItem = require('./router/orderItem.router')
-const reportRouter = require('./router/report.router');
+const reportRouter = require('./router/report.router'); // garante que todas as rotas estejam corretamente configuradas
 
 
 app.use(express.urlencoded({ extended: true }))
