@@ -1,4 +1,8 @@
+//CONTROLADOR DE RELATÓRIOS - utiliza os métodos criados no report service para lidar com as requisições HTTP
+
 const reportService = require('../service/report.service');
+
+// Lida com requisições GET para buscar pedidos de um cliente especifico
 
 exports.findOrdersByCustomer = async (req, res) => {
     const { customerId } = req.params;
@@ -17,6 +21,8 @@ exports.findOrdersByCustomer = async (req, res) => {
         });
     }
 };
+
+// Lida com requisições GET para buscar pedidos em aberto
 
 exports.findOrdersByStatus = async (req, res) => {
     const status = req.query.status;
