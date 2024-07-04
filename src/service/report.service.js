@@ -1,3 +1,5 @@
+//SERVIÇO DE RELATÓRIOS - interaje com o banco de dados e possibilita realizar consultas
+
 const db = require('../model');  // Importa o módulo db (que contém os modelos Sequelize)
 const Order = db.order;  // Obtém o modelo 'order' do Sequelize
 
